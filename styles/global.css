@@ -1,0 +1,4 @@
+/* modify https://github.com/slidevjs/slidev/blob/d14330cb3eaba5de4c70fed8498b875dd1927b15/packages/client/layouts/two-cols-header.vue */
+.two-columns > .grid {
+  gap: 1rem;
+}

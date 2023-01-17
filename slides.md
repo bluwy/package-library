@@ -1,6 +1,6 @@
 ---
 # try also 'default' to start simple
-theme: seriph
+theme: default
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
 background: https://source.unsplash.com/collection/94734566/1920x1080
@@ -23,381 +23,599 @@ drawings:
 css: unocss
 ---
 
-# Welcome to Slidev
+# The complete guide to packaging libraries
 
-Presentation slides for developers
-
-<div class="pt-12">
-  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
-  </span>
-</div>
-
-<div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
-    class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon-logo-github />
-  </a>
-</div>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
+Publish pain-free
 
 ---
 
-# What is Slidev?
+# Who am I
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - theme can be shared and used with npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embedding Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - anything possible on a webpage
-
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/guide/syntax#embedded-styles
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
+- I'm Bjorn Lu
+- Astro core resident
+- Vite and Svelte core team member
+- Worked in open source for 2 years
 
 ---
 
-# Navigation
+# Overview
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-### Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
+1. Types of packages
+2. Types of build tooling
+3. Publishing `package.json` fields
+4. Extra precautions
+5. A special tool
 
 ---
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
----
-
-# Code
-
-Use code snippets and get the highlighting directly![^1]
-
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  role: string
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id)
-  const newUser = { ...user, ...update }
-  saveUser(id, newUser)
-}
-```
-
-<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
-
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
-
-<style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="-t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
----
+layout: section
 preload: false
 ---
 
-# Animations
+# Let's make a library
 
-Animations are powered by [@vueuse/motion](https://motion.vueuse.org/).
+<p v-click>With Bob</p>
 
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }">
-  Slidev
-</div>
-```
+<img
+  class="bob fixed right-0 -bottom-8" 
+  v-click
+  src="/bob.svg"
+/>
 
-<div class="w-60 relative mt-6">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-square.png"
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-circle.png"
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-triangle.png"
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
+<style>
+  .bob.slidev-vclick-target {
+    @apply -bottom-8;
+    transition: all 500ms ease;
   }
-}
-</script>
 
-<div
-  v-motion
-  :initial="{ x:35, y: 40, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn More](https://sli.dev/guide/animations.html#motion)
-
-</div>
+  .bob.slidev-vclick-hidden {
+    @apply -bottom-20;
+  }
+</style>
 
 ---
 
-# LaTeX
+# A math library
 
-LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
+Simple, single-entry library using ES modules (ESM).
+
+<v-click>
+
+```js
+// main.js
+export function add(a, b) {
+  return a + b
+}
+```
+
+```json
+// package.json
+{
+  "name": "super-math",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./main.js"
+    }
+  },
+  "files": ["./main.js"]
+}
+```
+
+</v-click>
 
 <br>
 
-Inline $\sqrt{3x-1}+(1+x)^2$
+<v-click>
 
-Block
-$$
-\begin{array}{c}
+> `import` is an exports condition.
 
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
+</v-click>
 
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
+<!-- todo: use type module -->
 
-\nabla \cdot \vec{\mathbf{B}} & = 0
-
-\end{array}
-$$
-
-<br>
-
-[Learn more](https://sli.dev/guide/syntax#latex)
+<!-- Bob demands new features, questionable, mad -->
 
 ---
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-3 gap-10 pt-4 -mb-6">
-
-```mermaid {scale: 0.5}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-[Learn More](https://sli.dev/guide/syntax.html#diagrams)
-
+layout: two-cols-header
 ---
-src: ./pages/multiple-entries.md
-hide: false
----
+
+# Add type safety
+
+Write in TypeScript or JSDoc.
+
+::left::
+
+<v-click>
+
+#### TypeScript
+
+```ts
+const foo: string = bar
+
+function add(a: number, b: number) {
+  return a + b
+}
+```
+
+</v-click>
+
+::right::
+
+<v-click>
+
+#### JSDoc
+
+```js
+// JSDoc
+/** @type {string} */
+const foo = bar
+
+/**
+ * @param {number} a
+ * @param {number} a
+ */
+function add(a, b) {
+  return a + b
+}
+```
+
+</v-click>
 
 ---
 layout: center
-class: text-center
 ---
 
-# Learn More
+<div style="width: 500px">
+  <Tweet id="1566754561368494081" conversation="1"></Tweet>
+</div>
 
-[Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)
+
+
+---
+layout: two-cols-header
+---
+
+# Add type safety (Option 1)
+
+Write in TypeScript.
+
+::left::
+
+```ts
+// main.ts
+export function add(a: number, b: number) {
+  return a + b
+}
+```
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./"
+  }
+}
+```
+
+::right::
+
+```json {5,8,14,16-21}
+// package.json
+{
+  "name": "super-math",
+  "version": "1.0.0",
+  "types": "./main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./main.d.ts",
+      "import": "./main.js"
+    }
+  },
+  "files": [
+    "./main.js",
+    "./main.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "*"
+  }
+}
+```
+
+---
+layout: two-cols-header
+---
+
+# Add type safety (Option 2)
+
+Write in JSDoc.
+
+::left::
+
+```ts
+// main.d.ts
+export declare function add(a: number, b: number): number
+```
+
+```ts {2}
+// main.js
+/** @type {import('./main.d.ts').add} */
+export function add(a, b) {
+  return a + b
+}
+```
+
+::right::
+
+```json {5,8,14}
+// package.json
+{
+  "name": "super-math",
+  "version": "1.0.0",
+  "types": "./main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./main.d.ts",
+      "import": "./main.js"
+    }
+  },
+  "files": [
+    "./main.js",
+    "./main.d.ts"
+  ]
+}
+```
+
+---
+layout: two-cols-header
+---
+
+# Multiple entries
+
+Export from `/plugin`.
+
+::left::
+
+```js
+// plugin.js
+/** @type {import('./plugin.d.ts').plugin} */
+export default function plugin() {
+  return { name: 'super-math' }
+}
+```
+
+```ts
+// plugin.d.ts
+export declare default function plugin(): Plugin
+``` 
+
+<br>
+<br>
+
+<v-click>
+
+> `node` condition only works in Node.js.
+
+</v-click>
+
+::right::
+
+```json {11-16,21-22}
+// package.json
+{
+  "name": "super-math",
+  "version": "1.0.0",
+  "types": "./main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./main.d.ts",
+      "import": "./main.js"
+    },
+    "./plugin": {
+      "types": "./plugin.d.ts",
+      "node": {
+        "import": "./plugin.js"
+      }
+    }
+  },
+  "files": [
+    "./main.js",
+    "./main.d.ts",
+    "./plugin.js",
+    "./plugin.d.ts"
+  ]
+}
+```
+
+<!-- yes bob meme -->
+
+---
+layout: two-cols-header
+---
+
+# Export both CJS and ESM
+
+Support CommonJS and ES modules.
+
+::left::
+
+```js
+// main.cjs
+/** @type {import('./main.d.ts').add} */
+module.exports.add = function (a, b) {
+  return a + b
+}
+```
+
+```js
+// plugin.cjs
+/** @type {import('./plugin.d.ts').plugin} */
+module.exports = function plugin() {
+  return { name: 'super-math' }
+}
+```
+
+::right::
+
+```json {10,16,22,25}
+// package.json
+{
+  "name": "super-math",
+  "version": "1.0.0",
+  "types": "./main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./main.d.ts",
+      "import": "./main.js",
+      "require": "./main.cjs"
+    },
+    "./plugin": {
+      "types": "./plugin.d.ts",
+      "node": {
+        "import": "./plugin.js",
+        "require": "./plugin.cjs",
+      }
+    }
+  },
+  "files": [
+    "./main.js",
+    "./main.cjs",
+    "./main.d.ts",
+    "./plugin.js",
+    "./plugin.cjs",
+    "./plugin.d.ts"
+  ]
+}
+```
+
+---
+layout: section
+---
+
+# Done!
+
+---
+layout: section
+---
+
+# That's a lot of work
+
+---
+
+# Build tool
+
+- Rollup
+- Webpack
+- Parcel
+- esbuild
+
+<!-- todo: images -->
+<!-- surface you might think of these -->
+
+---
+
+# Build tool
+
+- tsup
+- unbuild
+- tsdx
+- microbundle
+- svelte-package
+
+---
+
+# Special files
+
+- `.vue` - Compile Vue files into JS - <small class="opacity-50">https://v2.vuejs.org/v2/cookbook/packaging-sfc-for-npm.html</small>
+- `.svelte` - Preprocess and publish raw Svelte files - <small class="opacity-50">https://kit.svelte.dev/docs/packaging</small>
+- `.astro` - Publish raw Astro files - <small class="opacity-50">https://docs.astro.build/en/reference/publish-to-npm</small>
+- `.jsx`
+  - SolidJS - Transpile and publish raw JSX files
+  - React - Compile into JS
+  - Preact - Compile into JS
+- `.css` - Transpile if using `.scss`, `.styl`, etc and publish raw CSS files
+- Other assets - Publish them raw
+
+<br>
+<br>
+
+> Refer to your framework guides if available!
+
+---
+layout: section
+---
+
+# Exporting
+
+---
+
+## The `exports` field
+
+A single key to define the entrypoints of your package.
+
+<div grid="~ cols-3 gap-1">
+<div>
+
+```json
+{
+  "exports": {
+    ".": {
+      "import": "./main.js"
+    },
+    "./utils": {
+      "import": "./utils.js"
+    }
+  }
+}
+```
+
+```json
+{
+  "exports": {
+    ".": {
+      "types": "./main.d.ts",
+      "import": "./main.js",
+      "require": "./main.cjs"
+    }
+  }
+}
+```
+
+</div>
+<div>
+
+```json
+{
+  "exports": {
+    ".": {
+      "import": {
+        "development": "./main.dev.js",
+        "production": "./main.prod.js",
+        "default": "./main.js"
+      }
+    }
+  }
+}
+```
+
+```json
+{
+  "exports": {
+    ".": {
+      "node": {
+        "import": "./main.node.js"
+      },
+      "browser": {
+        "import": "./main.browser.js"
+      },
+      "import": "./main.js"
+    }
+  }
+}
+```
+
+</div>
+<div>
+
+```json
+{
+  "exports": {
+    "./*": {
+      "browser": {
+        "import": "./*.browser.js"
+      },
+      "import": "./*.js"
+    },
+    "./utils/*.js": {
+      "import": "./utils/*/index.js"
+    },
+    "./assets/*": "./assets/*"
+  }
+}
+```
+
+</div>
+</div>
+
+---
+
+
+# `main`, `module`, `types`, `browser`...
+
+Besides `types`, these fields are superseded by `exports`.
+
+Use them if you:
+
+- Need to support older Node versions
+
+<br>
+<br>
+<br>
+
+```json
+{
+  "main": "./main.cjs",
+  "module": "./main.js",
+  "types": "./main.d.ts",
+  "browser": "./main.browser.js",
+  "jsnext:main": "./main.js",
+  "jsnext": "./main.js"
+}
+```
+
+---
+
+# The `files` field
+
+IMPORTANT. Files to keep for publishing. `.gitignore` format.
+
+```json
+{
+  "files": [
+    "dist",
+    "./cli.js",
+    "./*.d.ts",
+    "!dist/internal"
+  ]
+}
+```
+
+---
+layout: section
+---
+
+# Beware!
+
+---
+
+- No nodejs modules in the browser, `fs`, `crypto`, `path`, etc
+- `sideEffects`
+- You may not need to bundle and minify
+- Dual package hazard!
+
+---
+layout: iframe-right
+url: https://publint.dev
+---
+
+# publint.dev
+
+https://github.com/bluwy/publint
+
+- Lints packages to ensure compatibility with most environments, e.g. Vite, Webpack, Rollup, NodeJS, etc
+- Works npm packages or locally
+  ```bash
+  npx publint ./node_modules/package
+  ```
+
+---
+
+# Attributions
+
+https://getavataaars.com
+
+https://getavataaars.com/?accessoriesType=Blank&avatarStyle=Transparent&clotheColor=Heather&clotheType=CollarSweater&eyeType=Default&eyebrowType=RaisedExcitedNatural&facialHairType=BeardLight&hairColor=Brown&mouthType=Serious&skinColor=Light&topType=ShortHairShortFlat
