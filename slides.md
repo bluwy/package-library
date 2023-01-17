@@ -33,22 +33,53 @@ css: unocss
 
 ---
 
-# Who am I
-
-- I'm Bjorn Lu
-- Astro core resident
-- Vite and Svelte core team member
-- Worked in open source for 2 years
-
----
-
 # Overview
+
+<v-clicks>
 
 1. Types of packages
 2. Types of build tooling
 3. Publishing `package.json` fields
 4. Extra precautions
 5. A special tool
+
+</v-clicks>
+
+---
+clicks: 5
+---
+
+# Who am I
+
+<v-clicks>
+
+- I'm Bjorn Lu
+- From Malaysia
+- Astro core resident
+- Vite and Svelte core team member
+- Worked in open source for 2 years
+
+</v-clicks>
+
+<v-clicks at="2">
+  <img class="absolute -bottom-50 -right-80 opacity-50" src="/my_location.png" style="clip-path: circle(45%);" />
+</v-clicks>
+
+<v-clicks at="2">
+  <p class="absolute bottom-62 right-38 text-3xl text-red-700 font-semibold">Kuching</p>
+</v-clicks>
+
+<v-clicks at="3">
+  <img class="absolute bottom-80 right-100 h-30" src="/astro.svg" />
+</v-clicks>
+
+<v-clicks at="4">
+  <img class="absolute bottom-40 right-120 h-26" src="/vite.svg" />
+</v-clicks>
+
+<v-clicks at="4">
+  <img class="absolute bottom-40 right-80 h-28" src="/svelte.svg" />
+</v-clicks>
 
 ---
 layout: section
