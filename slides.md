@@ -108,10 +108,14 @@ preload: false
 </style>
 
 ---
+layout: two-cols-header
+---
 
 # A math library
 
 Simple, single-entry library using ES modules (ESM).
+
+::left::
 
 <v-click>
 
@@ -121,6 +125,11 @@ export function add(a, b) {
   return a + b
 }
 ```
+</v-click>
+
+::right::
+
+<v-click>
 
 ```json
 // package.json
@@ -146,8 +155,6 @@ export function add(a, b) {
 > `import` is an exports condition.
 
 </v-click>
-
-<!-- todo: use type module -->
 
 <!-- Bob demands new features, questionable, mad -->
 
@@ -440,26 +447,43 @@ layout: section
 # That's a lot of work
 
 ---
-
-# Build tool
-
-- Rollup
-- Webpack
-- Parcel
-- esbuild
-
-<!-- todo: images -->
-<!-- surface you might think of these -->
-
+layout: two-cols-header
 ---
 
-# Build tool
+::left::
 
-- tsup
-- unbuild
-- tsdx
-- microbundle
-- svelte-package
+# Build tools
+
+- [Rollup](https://rollupjs.org)
+- [Webpack](https://webpack.js.org)
+- [Parcel](https://parceljs.org)
+- [esbuild](https://esbuild.github.io)
+
+<img class="inline-block h-24 mr-16 mt-4 ml-6 mb-8" src="/rollup.svg" />
+<img class="inline-block h-24 mr-5 mt-4 mb-8" src="/webpack.svg" />
+
+<br>
+
+<img class="inline-block h-24 mr-8 mt-4" src="/parcel.png" />
+<img class="inline-block h-24 mr-5 mt-4" src="/esbuild.svg" />
+
+<!-- surface you might think of these -->
+
+::right::
+
+<v-click>
+
+# More build tools
+
+- [tsup](https://tsup.egoist.dev)
+- [unbuild](https://github.com/unjs/unbuild)
+- [tsdx](https://tsdx.io)
+- [microbundle](https://github.com/developit/microbundle)
+- [svelte-package](https://kit.svelte.dev/docs/packaging)
+
+</v-click>
+
+<!-- next page tsup example -->
 
 ---
 

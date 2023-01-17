@@ -2,3 +2,8 @@
 .two-columns > .grid {
   gap: 1rem;
 }
+
+/* default 0.5 opacity is hard to read */
+.slidev-layout h1 + p {
+  opacity: 0.75;
+}
