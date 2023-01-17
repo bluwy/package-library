@@ -1,9 +1,7 @@
 ---
 # try also 'default' to start simple
 theme: default
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://source.unsplash.com/collection/94734566/1920x1080
+background: /cover.png
 # apply any windi css classes to the current slide
 class: 'text-center'
 # https://sli.dev/custom/highlighters.html
@@ -23,9 +21,15 @@ drawings:
 css: unocss
 ---
 
-# The complete guide to packaging libraries
+<h1 class="font-semibold">The complete guide to <span class="text-blue-300">packaging libraries</span></h1>
 
-Publish pain-free
+<p class="text-xl opacity-100!">Publish pain-free (mostly)</p>
+
+<style>
+  .slidev-layout.cover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.433), rgba(0, 0, 0, 0.633)), url("/cover.png") !important;
+  }
+</style>
 
 ---
 
@@ -58,7 +62,7 @@ preload: false
 <img
   class="bob fixed right-0 -bottom-8" 
   v-click
-  src="/bob.svg"
+  src="/assets/bob.svg"
 />
 
 <style>
