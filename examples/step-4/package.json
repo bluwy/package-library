@@ -3,12 +3,19 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "types": "./dist/main.d.ts",
+  "types": "./main.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/main.d.ts",
+      "types": "./main.d.ts",
       "import": "./dist/main.js",
       "require": "./dist/main.cjs"
+    },
+    "./advanced": {
+      "types": "./advanced.d.ts",
+      "node": {
+        "import": "./dist/advanced.js",
+        "require": "./dist/advanced.cjs"
+      }
     }
   },
   "files": [

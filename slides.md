@@ -146,11 +146,7 @@ export function add(a, b) {
 }
 ```
 
-</v-click>
-
 <br>
-
-<v-click>
 
 > `import` is an exports condition.
 
@@ -163,62 +159,6 @@ layout: two-cols-header
 ---
 
 # Add type safety
-
-Write in TypeScript or JSDoc.
-
-::left::
-
-<v-click>
-
-#### TypeScript
-
-```ts
-const foo: string = bar
-
-function add(a: number, b: number) {
-  return a + b
-}
-```
-
-</v-click>
-
-::right::
-
-<v-click>
-
-#### JSDoc
-
-```js
-// JSDoc
-/** @type {string} */
-const foo = bar
-
-/**
- * @param {number} a
- * @param {number} a
- */
-function add(a, b) {
-  return a + b
-}
-```
-
-</v-click>
-
----
-layout: center
----
-
-<div style="width: 500px">
-  <Tweet id="1566754561368494081" conversation="1"></Tweet>
-</div>
-
-
-
----
-layout: two-cols-header
----
-
-# Add type safety (Option 1)
 
 Write in TypeScript.
 
@@ -236,28 +176,32 @@ export function add(a: number, b: number) {
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "./"
-  }
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
+    "outDir": "./dist"
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
 ```
 
 ::right::
 
-```json {5,8,14,16-21}
+```json {5,8,13-14,15-20}
 // package.json
 {
   "name": "super-math",
   "version": "1.0.0",
-  "types": "./main.d.ts",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
-      "types": "./main.d.ts",
-      "import": "./main.js"
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js"
     }
   },
   "files": [
-    "./main.js",
-    "./main.d.ts"
+    "dist"
   ],
   "scripts": {
     "build": "tsc"
@@ -272,45 +216,54 @@ export function add(a: number, b: number) {
 layout: two-cols-header
 ---
 
-# Add type safety (Option 2)
+# Export both ESM and CJS
 
-Write in JSDoc.
+Support ES modules and CommonJS so it works in older Node.js versions.
+
+<!-- TODO: Show interim example of ESM vs CJS -->
 
 ::left::
 
-```ts
-// main.d.ts
-export declare function add(a: number, b: number): number
-```
-
-```ts {2}
-// main.js
-/** @type {import('./main.d.ts').add} */
-export function add(a, b) {
-  return a + b
+```json {10,17}
+// package.json
+{
+  "name": "super-math",
+  "version": "1.0.0",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --module commonjs --declaration false && node scripts/rename.js && tsc"
+  },
+  "devDependencies": {
+    "typescript": "*"
+  }
 }
 ```
 
 ::right::
 
-```json {5,8,14}
-// package.json
-{
-  "name": "super-math",
-  "version": "1.0.0",
-  "types": "./main.d.ts",
-  "exports": {
-    ".": {
-      "types": "./main.d.ts",
-      "import": "./main.js"
-    }
-  },
-  "files": [
-    "./main.js",
-    "./main.d.ts"
-  ]
-}
+```bash
+tsc --module commonjs --declaration false &&
+  node scripts/rename.js &&
+  tsc
 ```
+
+<br>
+
+1. Generate `./dist/main.js` in CJS.
+2. Rename `./dist/main.js` to `./dist/main.cjs`.
+3. Generate  `./dist/main.js` in ESM and `./dist/main.d.ts`.
+
+
 
 ---
 layout: two-cols-header
@@ -318,25 +271,33 @@ layout: two-cols-header
 
 # Multiple entries
 
-Export from `/plugin`.
+Advanced maths through `super-math/advanced`.
 
 ::left::
 
-```js
-// plugin.js
-/** @type {import('./plugin.d.ts').plugin} */
-export default function plugin() {
-  return { name: 'super-math' }
+```ts
+// plugin.ts
+import { createHash } from 'node:crypto'
+export function getHash(text: string): string {
+  return createHash('sha256').update(text).digest('hex').substring(0, 8)
 }
 ```
 
-```ts
-// plugin.d.ts
-export declare default function plugin(): Plugin
-``` 
+<br>
 
-<br>
-<br>
+<v-click>
+
+```bash {all|3}
+tsc --module commonjs --declaration false &&
+  node scripts/rename.js &&
+  tsc --declarationDir ./
+```
+
+... Same as before, but generate types to `./` instead.
+
+So that TypeScript finds `./advanced.d.ts` when importing `super-math/advanced`.
+
+</v-click>
 
 <v-click>
 
@@ -346,93 +307,34 @@ export declare default function plugin(): Plugin
 
 ::right::
 
-```json {11-16,21-22}
+```json {6-12,16,19}
 // package.json
 {
-  "name": "super-math",
-  "version": "1.0.0",
-  "types": "./main.d.ts",
+  ...
   "exports": {
-    ".": {
-      "types": "./main.d.ts",
-      "import": "./main.js"
-    },
-    "./plugin": {
-      "types": "./plugin.d.ts",
+    ...
+    "./advanced": {
+      "types": "./advanced.d.ts",
       "node": {
-        "import": "./plugin.js"
+        "import": "./dist/advanced.js",
+        "require": "./dist/advanced.cjs"
       }
     }
   },
   "files": [
-    "./main.js",
-    "./main.d.ts",
-    "./plugin.js",
-    "./plugin.d.ts"
-  ]
+    "dist",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc --module commonjs --declaration false && node scripts/rename.js && tsc --declarationDir ./"
+  },
+  "devDependencies": {
+    "typescript": "*"
+  }
 }
 ```
 
 <!-- yes bob meme -->
-
----
-layout: two-cols-header
----
-
-# Export both CJS and ESM
-
-Support CommonJS and ES modules.
-
-::left::
-
-```js
-// main.cjs
-/** @type {import('./main.d.ts').add} */
-module.exports.add = function (a, b) {
-  return a + b
-}
-```
-
-```js
-// plugin.cjs
-/** @type {import('./plugin.d.ts').plugin} */
-module.exports = function plugin() {
-  return { name: 'super-math' }
-}
-```
-
-::right::
-
-```json {10,16,22,25}
-// package.json
-{
-  "name": "super-math",
-  "version": "1.0.0",
-  "types": "./main.d.ts",
-  "exports": {
-    ".": {
-      "types": "./main.d.ts",
-      "import": "./main.js",
-      "require": "./main.cjs"
-    },
-    "./plugin": {
-      "types": "./plugin.d.ts",
-      "node": {
-        "import": "./plugin.js",
-        "require": "./plugin.cjs",
-      }
-    }
-  },
-  "files": [
-    "./main.js",
-    "./main.cjs",
-    "./main.d.ts",
-    "./plugin.js",
-    "./plugin.cjs",
-    "./plugin.d.ts"
-  ]
-}
-```
 
 ---
 layout: section
