@@ -1,0 +1,23 @@
+{
+  "name": "step-3",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --module commonjs --declaration false && node scripts/rename.js && tsc"
+  },
+  "devDependencies": {
+    "typescript": "*"
+  }
+}

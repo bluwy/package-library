@@ -1,14 +1,39 @@
 lockfileVersion: 5.4
 
-specifiers:
-  '@slidev/cli': 0.38.1
-  '@slidev/theme-default': '*'
-  '@slidev/theme-seriph': '*'
+importers:
 
-dependencies:
-  '@slidev/cli': 0.38.1_postcss@8.4.20
-  '@slidev/theme-default': 0.21.2
-  '@slidev/theme-seriph': 0.21.3
+  .:
+    specifiers:
+      '@slidev/cli': 0.38.1
+      '@slidev/theme-default': '*'
+      '@slidev/theme-seriph': '*'
+    dependencies:
+      '@slidev/cli': 0.38.1_postcss@8.4.20
+      '@slidev/theme-default': 0.21.2
+      '@slidev/theme-seriph': 0.21.3
+
+  examples/step-1:
+    specifiers: {}
+
+  examples/step-2:
+    specifiers:
+      typescript: '*'
+    devDependencies:
+      typescript: 4.9.4
+
+  examples/step-3:
+    specifiers:
+      typescript: '*'
+    devDependencies:
+      typescript: 4.9.4
+
+  examples/step-4:
+    specifiers:
+      '@types/node': '*'
+      typescript: '*'
+    devDependencies:
+      '@types/node': 18.11.18
+      typescript: 4.9.4
 
 packages:
 
@@ -843,6 +868,10 @@ packages:
   /@types/mdurl/1.0.2:
     resolution: {integrity: sha512-eC4U9MlIcu2q0KQmXszyn5Akca/0jrQmwDRgpAMJai7qBWq4amIQhZyNau4VYGtCeALvW1/NtjzJJ567aZxfKA==}
     dev: false
+
+  /@types/node/18.11.18:
+    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
+    dev: true
 
   /@types/web-bluetooth/0.0.14:
     resolution: {integrity: sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==}
@@ -3272,6 +3301,12 @@ packages:
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
     dev: false
+
+  /typescript/4.9.4:
+    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
 
   /uc.micro/1.0.6:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}
