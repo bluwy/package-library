@@ -1,0 +1,33 @@
+{
+  "name": "tsup",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs"
+    },
+    "./advanced": {
+      "types": "./dist/advanced.d.ts",
+      "node": {
+        "import": "./dist/advanced.js",
+        "require": "./dist/advanced.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "build": "tsup ./main.ts ./advanced.ts --dts --format cjs,esm"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "tsup": "^6.5.0",
+    "typescript": "*"
+  }
+}

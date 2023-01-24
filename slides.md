@@ -348,6 +348,12 @@ layout: section
 
 # That's a lot of work
 
+<v-click>
+
+And that's where build tools come in.
+
+</v-click>
+
 ---
 layout: two-cols-header
 ---
@@ -385,7 +391,48 @@ layout: two-cols-header
 
 </v-click>
 
-<!-- next page tsup example -->
+---
+layout: two-cols-header
+---
+
+# Using tsup
+
+::left::
+
+```json {21,25|4,7,12}
+{
+  ...
+  "type": "module",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs"
+    },
+    "./advanced": {
+      "types": "./dist/advanced.d.ts",
+      "node": {
+        "import": "./dist/advanced.js",
+        "require": "./dist/advanced.cjs"
+      }
+    }
+  },
+  ...
+  "scripts": {
+    "build": "tsup ./main.ts ./advanced.ts --dts --format cjs,esm"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "tsup": "^6.5.0",
+    "typescript": "*"
+  }
+}
+```
+
+::right::
+
+<!-- Note: types issue -->
 
 ---
 
@@ -405,6 +452,53 @@ layout: two-cols-header
 <br>
 
 > Refer to your framework guides if available!
+
+<!-- There is so many things to consider. But there is calm within the storm -->
+
+---
+layout: section
+---
+
+# It's complex!
+
+But we can simplify it.
+
+---
+
+# Simplify type safety
+
+Remove TypeScript, use JSDoc.
+
+```ts
+// main.d.ts
+export declare function add(a: number, b: number): number;
+```
+
+```js
+/** @type {string} */
+const foo = bar
+
+/** @type {import('./main').add} */
+function add(a, b) {
+  return a + b
+}
+```
+
+---
+layout: center
+---
+
+<div style="width: 500px">
+  <Tweet id="1566754561368494081" conversation="1"></Tweet>
+</div>
+
+---
+
+# Simplify ESM and CJS
+
+If backwards compatibility is not required, you can drop CJS.
+
+<!-- somehow segue to exports and note beware -->
 
 ---
 layout: section
