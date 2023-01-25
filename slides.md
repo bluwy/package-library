@@ -432,7 +432,14 @@ layout: two-cols-header
 
 ::right::
 
-<!-- Note: types issue -->
+- Simplified command
+- Types issue returns
+
+<style>
+.shiki-container {
+  height: 28rem;
+}
+</style>
 
 ---
 
@@ -464,10 +471,14 @@ layout: section
 But we can simplify it.
 
 ---
+layout: two-cols-header
+---
 
 # Simplify type safety
 
 Remove TypeScript, use JSDoc.
+
+::left::
 
 ```ts
 // main.d.ts
@@ -484,6 +495,18 @@ function add(a, b) {
 }
 ```
 
+::right::
+
+<v-clicks>
+
+- Hand roll `.d.ts` files
+- Use JSDoc comments
+- No bundling / transpiling
+- Easier to debug
+- Full type safety preserved
+
+</v-clicks>
+
 ---
 layout: center
 ---
@@ -493,24 +516,48 @@ layout: center
 </div>
 
 ---
+layout: two-cols-header
+---
 
 # Simplify ESM and CJS
 
 If backwards compatibility is not required, you can drop CJS.
 
-<!-- somehow segue to exports and note beware -->
+::left::
+
+```json {6-18}
+{
+  "name": "super-math",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "types": "./main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./main.d.ts",
+      "import": "./main.js"
+    },
+    "./advanced": {
+      "types": "./advanced.d.ts",
+      "node": {
+        "import": "./advanced.js"
+      }
+    }
+  }
+}
+```
 
 ---
 layout: section
 ---
 
-# Exporting
+# Research!
 
 ---
 
 ## The `exports` field
 
-A single key to define the entrypoints of your package.
+A single key to define the package entrypoints. https://nodejs.org/api/packages.html#subpath-exports
 
 <div grid="~ cols-3 gap-1">
 <div>
@@ -603,12 +650,10 @@ A single key to define the entrypoints of your package.
 
 Besides `types`, these fields are superseded by `exports`.
 
-Use them if you:
+- https://nodejs.org/api/packages.html#main
+- https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html#including-declarations-in-your-npm-package
+- https://github.com/defunctzombie/package-browser-field-spec
 
-- Need to support older Node versions
-
-<br>
-<br>
 <br>
 
 ```json
@@ -623,19 +668,43 @@ Use them if you:
 ```
 
 ---
+layout: two-cols-header
+---
 
 # The `files` field
 
-IMPORTANT. Files to keep for publishing. `.gitignore` format.
+IMPORTANT. Files to be packed as tarball for publishing. Same as `.gitignore` format.
+
+::left::
 
 ```json
 {
   "files": [
     "dist",
     "./cli.js",
-    "./*.d.ts",
+    "*.d.ts",
     "!dist/internal"
   ]
+}
+```
+
+---
+layout: two-cols-header
+---
+
+# The `sideEffects` field
+
+Tell bundlers if the package has side effects or not.
+
+Side effects are code that changes the global runtime on import, without explicitly calling an API.
+
+::left::
+
+```js
+document.title = "Imported!"
+
+export function foo() {
+  return document.title
 }
 ```
 
@@ -643,14 +712,7 @@ IMPORTANT. Files to keep for publishing. `.gitignore` format.
 layout: section
 ---
 
-# Beware!
-
----
-
-- No nodejs modules in the browser, `fs`, `crypto`, `path`, etc
-- `sideEffects`
-- You may not need to bundle and minify
-- Dual package hazard!
+# There's a lot to remember
 
 ---
 layout: iframe-right
@@ -662,9 +724,13 @@ url: https://publint.dev
 https://github.com/bluwy/publint
 
 - Lints packages to ensure compatibility with most environments, e.g. Vite, Webpack, Rollup, NodeJS, etc
-- Works npm packages or locally
+- Works with npm packages or locally
   ```bash
-  npx publint ./node_modules/package
+  # Lint current directory
+  npx publint
+
+  # Lint node_modules / dependencies
+  npx publint deps
   ```
 
 ---
@@ -674,3 +740,7 @@ https://github.com/bluwy/publint
 https://getavataaars.com
 
 https://getavataaars.com/?accessoriesType=Blank&avatarStyle=Transparent&clotheColor=Heather&clotheType=CollarSweater&eyeType=Default&eyebrowType=RaisedExcitedNatural&facialHairType=BeardLight&hairColor=Brown&mouthType=Serious&skinColor=Light&topType=ShortHairShortFlat
+
+https://antfu.me/posts/publish-esm-and-cjs
+
+https://github.com/sheremet-va/dual-packaging
