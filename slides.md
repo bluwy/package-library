@@ -32,15 +32,18 @@ css: unocss
 </style>
 
 ---
+layout: image-right
+image: https://source.unsplash.com/HKQVX9_JupM
+---
 
 # Overview
 
 <v-clicks>
 
-1. Types of packages
-2. Types of build tooling
-3. Publishing `package.json` fields
-4. Extra precautions
+1. Simple packages
+2. Using build tools
+3. Reducing complexity
+4. Where to learn more
 5. A special tool
 
 </v-clicks>
@@ -93,8 +96,18 @@ preload: false
 <img
   class="bob fixed right-0 -bottom-8" 
   v-click
-  src="/assets/bob.svg"
+  src="/bob.svg"
 />
+
+<img
+  class="fixed right-0 -bottom-8" 
+  v-click
+  src="/bob-talk.svg"
+/>
+
+<TalkBubble>
+  Let's make a math library!
+</TalkBubble>
 
 <style>
   .bob.slidev-vclick-target {
