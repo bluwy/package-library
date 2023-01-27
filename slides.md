@@ -99,15 +99,37 @@ preload: false
   src="/bob.svg"
 />
 
+<!-- what do you want to do today -->
+
 <img
   class="fixed right-0 -bottom-8" 
   v-click
   src="/bob-talk.svg"
 />
 
+<div v-after>
+
 <TalkBubble>
   Let's make a math library!
 </TalkBubble>
+
+</div>
+
+<!-- are you sure? -->
+
+<img
+  class="fixed right-0 -bottom-8" 
+  v-click
+  src="/bob-mad.svg"
+/>
+
+<div v-after>
+
+<TalkBubble>
+  YES
+</TalkBubble>
+
+</div>
 
 <style>
   .bob.slidev-vclick-target {
