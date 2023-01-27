@@ -93,41 +93,25 @@ preload: false
 
 <p v-click>With Bob</p>
 
-<img
-  class="bob fixed right-0 -bottom-8" 
-  v-click
-  src="/bob.svg"
-/>
+<div v-click>
+
+<Bob right normal />
+
+</div>
 
 <!-- what do you want to do today -->
 
-<img
-  class="fixed right-0 -bottom-8" 
-  v-click
-  src="/bob-talk.svg"
-/>
+<div v-click>
 
-<div v-after>
-
-<TalkBubble>
-  Let's make a math library!
-</TalkBubble>
+<Bob right talk msg="Let's make a math library!" />
 
 </div>
 
 <!-- are you sure? -->
 
-<img
-  class="fixed right-0 -bottom-8" 
-  v-click
-  src="/bob-mad.svg"
-/>
+<div v-click>
 
-<div v-after>
-
-<TalkBubble>
-  YES
-</TalkBubble>
+<Bob right mad msg="YES" />
 
 </div>
 
