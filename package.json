@@ -9,7 +9,8 @@
   "dependencies": {
     "@slidev/cli": "0.38.1",
     "@slidev/theme-default": "*",
-    "@slidev/theme-seriph": "*"
+    "@slidev/theme-seriph": "*",
+    "vue-confetti-explosion": "^1.0.2"
   },
   "pnpm": {
     "peerDependencyRules": {

@@ -7,10 +7,12 @@ importers:
       '@slidev/cli': 0.38.1
       '@slidev/theme-default': '*'
       '@slidev/theme-seriph': '*'
+      vue-confetti-explosion: ^1.0.2
     dependencies:
       '@slidev/cli': 0.38.1_postcss@8.4.20
       '@slidev/theme-default': 0.21.2
       '@slidev/theme-seriph': 0.21.3
+      vue-confetti-explosion: 1.0.2_vue@3.2.45
 
   examples/step-1:
     specifiers: {}
@@ -4044,6 +4046,15 @@ packages:
 
   /vscode-textmate/6.0.0:
     resolution: {integrity: sha512-gu73tuZfJgu+mvCSy4UZwd2JXykjK9zAZsfmDeut5dx/1a7FeTk0XwJsSuqQn+cuMCGVbIBfl+s53X4T19DnzQ==}
+    dev: false
+
+  /vue-confetti-explosion/1.0.2_vue@3.2.45:
+    resolution: {integrity: sha512-80OboM3/6BItIoZ6DpNcZFqGpF607kjIVc5af56oKgtFmt5yWehvJeoYhkzYlqxrqdBe0Ko4Ie3bWrmLau+dJw==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      vue: ^3.0.5
+    dependencies:
+      vue: 3.2.45
     dev: false
 
   /vue-demi/0.13.11_vue@3.2.45:

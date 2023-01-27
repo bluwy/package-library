@@ -171,7 +171,17 @@ export function add(a, b) {
 
 </v-click>
 
-<!-- Bob demands new features, questionable, mad -->
+<div v-click>
+
+<Bob left />
+
+</div>
+
+<div v-click>
+
+<Bob left talk msg="Let's add types!" />
+
+</div>
 
 ---
 layout: two-cols-header
@@ -183,12 +193,18 @@ Write in TypeScript.
 
 ::left::
 
+<v-click>
+
 ```ts
 // main.ts
 export function add(a: number, b: number) {
   return a + b
 }
 ```
+
+</v-click>
+
+<v-click>
 
 ```json
 // tsconfig.json
@@ -205,9 +221,13 @@ export function add(a: number, b: number) {
 }
 ```
 
+</v-click>
+
 ::right::
 
-```json {5,8,13-14,15-20}
+<v-click>
+
+```json {5,8,13,15-20}
 // package.json
 {
   "name": "super-math",
@@ -231,6 +251,72 @@ export function add(a: number, b: number) {
 }
 ```
 
+</v-click>
+
+<div v-click>
+
+<Bob left />
+
+</div>
+
+<div v-click>
+
+<Bob left talk msg="What about CommonJS?" />
+
+</div>
+
+<!-- what about it? (joking) -->
+
+<div v-click>
+
+<Bob left sad />
+
+</div>
+
+---
+layout: two-cols-header
+---
+
+# ESM vs CJS
+
+::left::
+
+ES modules
+
+```js
+import { foo } from 'bar'
+
+const hello = 'world'
+
+const data = await import('./data.js')
+
+
+
+
+
+
+export { hello }
+```
+
+::right::
+
+CommonJS
+
+```js
+const bar = require('bar')
+
+const hello = 'world'
+
+async function run() {
+  const data = await import('./data.js')
+  return data
+}
+
+const syncData = require('./data.js')
+
+module.exports = { hello }
+```
+
 ---
 layout: two-cols-header
 ---
@@ -239,9 +325,9 @@ layout: two-cols-header
 
 Support ES modules and CommonJS so it works in older Node.js versions.
 
-<!-- TODO: Show interim example of ESM vs CJS -->
-
 ::left::
+
+<v-click>
 
 ```json {10,17}
 // package.json
@@ -268,7 +354,11 @@ Support ES modules and CommonJS so it works in older Node.js versions.
 }
 ```
 
+</v-click>
+
 ::right::
+
+<v-click>
 
 ```bash
 tsc --module commonjs --declaration false &&
@@ -276,13 +366,29 @@ tsc --module commonjs --declaration false &&
   tsc
 ```
 
+</v-click>
+
 <br>
+
+<v-click>
 
 1. Generate `./dist/main.js` in CJS.
 2. Rename `./dist/main.js` to `./dist/main.cjs`.
 3. Generate  `./dist/main.js` in ESM and `./dist/main.d.ts`.
 
+</v-click>
 
+<div v-click>
+
+<Bob right />
+
+</div>
+
+<div v-click>
+
+<Bob right talk msg="How about some advanced maths" />
+
+</div>
 
 ---
 layout: two-cols-header
@@ -294,6 +400,8 @@ Advanced maths through `super-math/advanced`.
 
 ::left::
 
+<v-click at="1">
+
 ```ts
 // plugin.ts
 import { createHash } from 'node:crypto'
@@ -302,9 +410,11 @@ export function getHash(text: string): string {
 }
 ```
 
+</v-click>
+
 <br>
 
-<v-click>
+<v-click at="3">
 
 ```bash {all|3}
 tsc --module commonjs --declaration false &&
@@ -318,13 +428,15 @@ So that TypeScript finds `./advanced.d.ts` when importing `super-math/advanced`.
 
 </v-click>
 
-<v-click>
+<v-click at="4">
 
 > `node` condition only works in Node.js.
 
 </v-click>
 
 ::right::
+
+<v-click at="2">
 
 ```json {6-12,16,19}
 // package.json
@@ -353,13 +465,16 @@ So that TypeScript finds `./advanced.d.ts` when importing `super-math/advanced`.
 }
 ```
 
-<!-- yes bob meme -->
+</v-click>
 
 ---
 layout: section
+prerender: false
 ---
 
 # Done!
+
+<ConfettiExplosion />
 
 ---
 layout: section
@@ -482,7 +597,9 @@ layout: two-cols-header
 <!-- There is so many things to consider. But there is calm within the storm -->
 
 ---
-layout: section
+layout: cover
+background: https://source.unsplash.com/hko-iWhYdYE
+class: 'text-center'
 ---
 
 # It's complex!
@@ -567,7 +684,9 @@ If backwards compatibility is not required, you can drop CJS.
 ```
 
 ---
-layout: section
+layout: cover
+background: https://source.unsplash.com/3mt71MKGjQ0
+class: 'text-center'
 ---
 
 # Research!
