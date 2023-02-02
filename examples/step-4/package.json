@@ -3,15 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "types": "./main.d.ts",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
-      "types": "./main.d.ts",
+      "types": "./dist/main.d.ts",
       "import": "./dist/main.js",
       "require": "./dist/main.cjs"
     },
     "./advanced": {
-      "types": "./advanced.d.ts",
+      "types": "./dist/advanced.d.ts",
       "node": {
         "import": "./dist/advanced.js",
         "require": "./dist/advanced.cjs"
@@ -23,7 +23,7 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "tsc --module commonjs --declaration false && node scripts/rename.js && tsc --declarationDir ./"
+    "build": "tsc --module commonjs --declaration false && node scripts/rename.js && tsc"
   },
   "devDependencies": {
     "@types/node": "*",

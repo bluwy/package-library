@@ -43,8 +43,9 @@ image: https://source.unsplash.com/HKQVX9_JupM
 1. Simple packages
 2. Using build tools
 3. Reducing complexity
-4. Where to learn more
-5. A special tool
+4. Keys to success
+5. Where to learn more
+6. A special tool
 
 </v-clicks>
 
@@ -157,9 +158,7 @@ export function add(a, b) {
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./main.js"
-    }
+    ".": "./main.js"
   },
   "files": ["./main.js"]
 }
@@ -236,7 +235,7 @@ export function add(a: number, b: number) {
   "exports": {
     ".": {
       "types": "./dist/main.d.ts",
-      "import": "./dist/main.js"
+      "default": "./dist/main.js"
     }
   },
   "files": [
@@ -416,20 +415,6 @@ export function getHash(text: string): string {
 
 <v-click at="3">
 
-```bash {all|3}
-tsc --module commonjs --declaration false &&
-  node scripts/rename.js &&
-  tsc --declarationDir ./
-```
-
-... Same as before, but generate types to `./` instead.
-
-So that TypeScript finds `./advanced.d.ts` when importing `super-math/advanced`.
-
-</v-click>
-
-<v-click at="4">
-
 > `node` condition only works in Node.js.
 
 </v-click>
@@ -445,7 +430,7 @@ So that TypeScript finds `./advanced.d.ts` when importing `super-math/advanced`.
   "exports": {
     ...
     "./advanced": {
-      "types": "./advanced.d.ts",
+      "types": "./dist/advanced.d.ts",
       "node": {
         "import": "./dist/advanced.js",
         "require": "./dist/advanced.cjs"
@@ -457,7 +442,7 @@ So that TypeScript finds `./advanced.d.ts` when importing `super-math/advanced`.
     "*.d.ts"
   ],
   "scripts": {
-    "build": "tsc --module commonjs --declaration false && node scripts/rename.js && tsc --declarationDir ./"
+    "build": "tsc --module commonjs --declaration false && node scripts/rename.js && tsc"
   },
   "devDependencies": {
     "typescript": "*"
@@ -487,6 +472,16 @@ layout: section
 And that's where build tools come in.
 
 </v-click>
+
+<!-- it simplifies the build script, allows to alter the build output easily
+
+use case:
+
+1. bundle files into one so we don't have multiple d.ts files
+2. easier to consume from a CDN
+3. special files
+
+ -->
 
 ---
 layout: two-cols-header
@@ -529,7 +524,7 @@ layout: two-cols-header
 layout: two-cols-header
 ---
 
-# Using tsup
+# Simplify build script (tsup)
 
 ::left::
 
@@ -577,7 +572,7 @@ layout: two-cols-header
 
 ---
 
-# Special files
+# Handle special files
 
 - `.vue` - Compile Vue files into JS - <small class="opacity-50">https://v2.vuejs.org/v2/cookbook/packaging-sfc-for-npm.html</small>
 - `.svelte` - Preprocess and publish raw Svelte files - <small class="opacity-50">https://kit.svelte.dev/docs/packaging</small>
@@ -689,7 +684,7 @@ background: https://source.unsplash.com/3mt71MKGjQ0
 class: 'text-center'
 ---
 
-# Research!
+# package.json
 
 ---
 
@@ -809,7 +804,7 @@ Besides `types`, these fields are superseded by `exports`.
 layout: two-cols-header
 ---
 
-# The `files` field
+# `files`
 
 IMPORTANT. Files to be packed as tarball for publishing. Same as `.gitignore` format.
 
@@ -830,7 +825,7 @@ IMPORTANT. Files to be packed as tarball for publishing. Same as `.gitignore` fo
 layout: two-cols-header
 ---
 
-# The `sideEffects` field
+# `sideEffects`
 
 Tell bundlers if the package has side effects or not.
 
@@ -845,6 +840,24 @@ export function foo() {
   return document.title
 }
 ```
+
+---
+layout: section
+---
+
+# Many little rules
+
+
+---
+
+# Many little rules
+
+- No Node.js modules in browser code
+- No browser-only API in Node.js code
+- Don't mix `require()` in ESM
+- Make sure JS file extensions are correct for ESM and CJS
+- Set `engines.node` if depend on a specific Node.js version
+- Types may need to be emitted in root
 
 ---
 layout: section
@@ -882,3 +895,13 @@ https://getavataaars.com/?accessoriesType=Blank&avatarStyle=Transparent&clotheCo
 https://antfu.me/posts/publish-esm-and-cjs
 
 https://github.com/sheremet-va/dual-packaging
+
+---
+
+# Find me at
+
+https://github.com/bluwy
+
+https://m.webtoo.ls/@bluwy
+
+https://twitter.com/bluwyoo

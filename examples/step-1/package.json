@@ -4,9 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./main.js"
-    }
+    ".": "./main.js"
   },
   "files": ["./main.js"]
 }
