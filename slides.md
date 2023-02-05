@@ -33,7 +33,7 @@ css: unocss
 
 ---
 layout: image-right
-image: https://source.unsplash.com/HKQVX9_JupM
+image: /tree-path.jpg
 ---
 
 # Overview
@@ -582,7 +582,7 @@ layout: two-cols-header
 
 ---
 layout: cover
-background: https://source.unsplash.com/hko-iWhYdYE
+background: /frustration.jpg
 class: 'text-center'
 ---
 
@@ -668,7 +668,7 @@ If backwards compatibility is not required, you can drop CJS.
 
 ---
 layout: cover
-background: https://source.unsplash.com/3mt71MKGjQ0
+background: /glasses.jpg
 class: 'text-center'
 ---
 
@@ -676,7 +676,7 @@ class: 'text-center'
 
 <style>
   .slidev-layout.cover {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.433), rgba(0, 0, 0, 0.633)), url("https://source.unsplash.com/3mt71MKGjQ0") !important;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.433), rgba(0, 0, 0, 0.633)), url("/glasses.jpg") !important;
   }
 </style>
 
