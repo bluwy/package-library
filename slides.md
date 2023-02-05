@@ -49,6 +49,8 @@ image: https://source.unsplash.com/HKQVX9_JupM
 
 </v-clicks>
 
+<!-- There will be a lot of info dump, you can access the slides online later -->
+
 ---
 clicks: 5
 ---
@@ -461,6 +463,15 @@ prerender: false
 
 <ConfettiExplosion />
 
+<v-clicks>
+
+1. exports field
+2. Using TypeScript
+3. Support ESM and CJS
+4. Multiple entries
+
+</v-clicks>
+
 ---
 layout: section
 ---
@@ -521,54 +532,32 @@ layout: two-cols-header
 </v-click>
 
 ---
-layout: two-cols-header
----
 
 # Simplify build script (tsup)
 
-::left::
-
-```json {21,25|4,7,12}
+```json {4,8}
 {
-  ...
-  "type": "module",
-  "types": "./dist/main.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/main.d.ts",
-      "import": "./dist/main.js",
-      "require": "./dist/main.cjs"
-    },
-    "./advanced": {
-      "types": "./dist/advanced.d.ts",
-      "node": {
-        "import": "./dist/advanced.js",
-        "require": "./dist/advanced.cjs"
-      }
-    }
-  },
   ...
   "scripts": {
     "build": "tsup ./main.ts ./advanced.ts --dts --format cjs,esm"
   },
   "devDependencies": {
     "@types/node": "*",
-    "tsup": "^6.5.0",
+    "tsup": "*",
     "typescript": "*"
   }
 }
 ```
 
-::right::
+<br />
+
+<v-click>
 
 - Simplified command
-- Types issue returns
+- Types are bundled
+- Best practices out-of-the-box
 
-<style>
-.shiki-container {
-  height: 28rem;
-}
-</style>
+</v-click>
 
 ---
 
@@ -617,6 +606,7 @@ export declare function add(a: number, b: number): number;
 ```
 
 ```js
+// main.js
 /** @type {string} */
 const foo = bar
 
@@ -628,7 +618,7 @@ function add(a, b) {
 
 ::right::
 
-<v-clicks>
+<v-click>
 
 - Hand roll `.d.ts` files
 - Use JSDoc comments
@@ -636,7 +626,7 @@ function add(a, b) {
 - Easier to debug
 - Full type safety preserved
 
-</v-clicks>
+</v-click>
 
 ---
 layout: center
@@ -666,13 +656,11 @@ If backwards compatibility is not required, you can drop CJS.
   "exports": {
     ".": {
       "types": "./main.d.ts",
-      "import": "./main.js"
+      "default": "./main.js"
     },
     "./advanced": {
       "types": "./advanced.d.ts",
-      "node": {
-        "import": "./advanced.js"
-      }
+      "node": "./advanced.js"
     }
   }
 }
@@ -684,11 +672,23 @@ background: https://source.unsplash.com/3mt71MKGjQ0
 class: 'text-center'
 ---
 
+# Important bits
+
+<style>
+  .slidev-layout.cover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.433), rgba(0, 0, 0, 0.633)), url("https://source.unsplash.com/3mt71MKGjQ0") !important;
+  }
+</style>
+
+---
+layout: section
+---
+
 # package.json
 
 ---
 
-## The `exports` field
+## `exports`
 
 A single key to define the package entrypoints. https://nodejs.org/api/packages.html#subpath-exports
 
@@ -698,12 +698,8 @@ A single key to define the package entrypoints. https://nodejs.org/api/packages.
 ```json
 {
   "exports": {
-    ".": {
-      "import": "./main.js"
-    },
-    "./utils": {
-      "import": "./utils.js"
-    }
+    ".": "./main.js",
+    "./utils": "./utils.js"
   }
 }
 ```
@@ -741,12 +737,8 @@ A single key to define the package entrypoints. https://nodejs.org/api/packages.
 {
   "exports": {
     ".": {
-      "node": {
-        "import": "./main.node.js"
-      },
-      "browser": {
-        "import": "./main.browser.js"
-      },
+      "node": "./main.node.js",
+      "browser": "./main.browser.js",
       "import": "./main.js"
     }
   }
@@ -760,14 +752,10 @@ A single key to define the package entrypoints. https://nodejs.org/api/packages.
 {
   "exports": {
     "./*": {
-      "browser": {
-        "import": "./*.browser.js"
-      },
-      "import": "./*.js"
+      "browser": "./*.browser.js",
+      "default": "./*.js"
     },
-    "./utils/*.js": {
-      "import": "./utils/*/index.js"
-    },
+    "./utils/*.js": "./utils/*/index.js",
     "./assets/*": "./assets/*"
   }
 }
@@ -806,7 +794,11 @@ layout: two-cols-header
 
 # `files`
 
-IMPORTANT. Files to be packed as tarball for publishing. Same as `.gitignore` format.
+**IMPORTANT!**
+
+Files to be packed as tarball for publishing. Same as `.gitignore` format.
+
+https://docs.npmjs.com/cli/v9/configuring-npm/package-json#files
 
 ::left::
 
@@ -831,13 +823,25 @@ Tell bundlers if the package has side effects or not.
 
 Side effects are code that changes the global runtime on import, without explicitly calling an API.
 
+https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free
+
 ::left::
 
 ```js
+// main.js
 document.title = "Imported!"
 
 export function foo() {
   return document.title
+}
+```
+
+::right::
+
+```json
+// package.json
+{
+  "sideEffects": true
 }
 ```
 
@@ -856,8 +860,20 @@ layout: section
 - No browser-only API in Node.js code
 - Don't mix `require()` in ESM
 - Make sure JS file extensions are correct for ESM and CJS
-- Set `engines.node` if depend on a specific Node.js version
-- Types may need to be emitted in root
+  - A file is ESM if it's `.mjs` or has `"type": "module"` in nearest `package.json`
+  - A file is CJS if it's `.cjs` or has no `"type": "module"` in nearest `package.json`
+- Set `engines.node` field if depend on a specific Node.js version
+- The `typesVersion` field may be needed for multiple export typings
+  - https://github.com/andrewbranch/example-subpath-exports-ts-compat
+- Types may not work in ESM and CJS with `node16` `moduleResolution`
+  - https://arethetypeswrong.github.io
+
+<style>
+li {
+  margin-top: .4rem;
+  margin-bottom: .4rem;
+}
+</style>
 
 ---
 layout: section
@@ -875,6 +891,7 @@ url: https://publint.dev
 https://github.com/bluwy/publint
 
 - Lints packages to ensure compatibility with most environments, e.g. Vite, Webpack, Rollup, NodeJS, etc
+- Catches most pitfalls showed earlier
 - Works with npm packages or locally
   ```bash
   # Lint current directory
@@ -888,20 +905,47 @@ https://github.com/bluwy/publint
 
 # Attributions
 
-https://getavataaars.com
+These resources and tools help this presentation!
 
-https://getavataaars.com/?accessoriesType=Blank&avatarStyle=Transparent&clotheColor=Heather&clotheType=CollarSweater&eyeType=Default&eyebrowType=RaisedExcitedNatural&facialHairType=BeardLight&hairColor=Brown&mouthType=Serious&skinColor=Light&topType=ShortHairShortFlat
+https://getavataaars.com ([Bob](https://getavataaars.com/?accessoriesType=Blank&avatarStyle=Transparent&clotheColor=Heather&clotheType=CollarSweater&eyeType=Default&eyebrowType=RaisedExcitedNatural&facialHairType=BeardLight&hairColor=Brown&mouthType=Serious&skinColor=Light&topType=ShortHairShortFlat))
 
 https://antfu.me/posts/publish-esm-and-cjs
 
 https://github.com/sheremet-va/dual-packaging
 
+https://sli.dev
+
+https://unsplash.com ([1](https://source.unsplash.com/HKQVX9_JupM), [2](https://source.unsplash.com/hko-iWhYdYE), [3](https://source.unsplash.com/3mt71MKGjQ0))
+
+---
+layout: section
 ---
 
-# Find me at
+# Thank you
 
-https://github.com/bluwy
+<div class="w-50 mx-auto text-left">
 
-https://m.webtoo.ls/@bluwy
+![github](/github.svg) [@bluwy](https://github.com/bluwy)
 
-https://twitter.com/bluwyoo
+![mastodon](/mastodon.svg) [@bluwy@webtoo.ls](https://m.webtoo.ls/@bluwy)
+
+![twitter](/twitter.svg) [@bluwyoo](https://twitter.com/bluwyoo)
+
+</div>
+
+<br />
+
+Slides: https://package-library.bjornlu.com
+
+Repo: https://github.com/bluwy/package-library
+
+<Bob talk />
+
+<style>
+img {
+  display: inline-block;
+  height: 26px;
+  filter: brightness(0) invert(1);
+  margin-right: 0.6rem;
+}
+</style>
