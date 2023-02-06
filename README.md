@@ -1,11 +1,11 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# package-library
 
-To start the slide show:
+Slides for "The complete guide to packaging libraries" talk.
 
-- `npm install`
-- `npm run dev`
-- visit http://localhost:3030
+View online on https://package-library.bjornlu.com
 
-Edit the [slides.md](./slides.md) to see the changes.
+Is this _the_ complete guide? Maybe. The scope definitely blew a bit 😅
 
-Learn more about Slidev on [documentations](https://sli.dev/).
+## License
+
+MIT

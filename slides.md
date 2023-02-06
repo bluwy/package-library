@@ -10,15 +10,13 @@ highlighter: shiki
 lineNumbers: false
 # some information about the slides, markdown enabled
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+  The complete guide to packaging libraries
 # persist drawings in exports and build
 drawings:
   persist: false
 # use UnoCSS
 css: unocss
+transition: fade
 ---
 
 <h1 class="font-semibold">The complete guide to <span class="text-blue-300">packaging libraries</span></h1>
