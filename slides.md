@@ -41,9 +41,8 @@ image: /tree-path.jpg
 1. Simple packages
 2. Using build tools
 3. Reducing complexity
-4. Keys to success
-5. Where to learn more
-6. A special tool
+4. Important bits
+5. A special tool
 
 </v-clicks>
 
@@ -127,6 +126,10 @@ preload: false
   }
 </style>
 
+<!--
+It can be boring, so we'll have Bob. Also joking about why make a math library.
+-->
+
 ---
 layout: two-cols-header
 ---
@@ -163,10 +166,6 @@ export function add(a, b) {
   "files": ["./main.js"]
 }
 ```
-
-<br>
-
-> `import` is an exports condition.
 
 </v-click>
 
@@ -226,7 +225,7 @@ export function add(a: number, b: number) {
 
 <v-click>
 
-```json {5,8,13,15-20}
+```json {5,8|15-20|9,12-14}
 // package.json
 {
   "name": "super-math",
@@ -272,6 +271,10 @@ export function add(a: number, b: number) {
 
 </div>
 
+<!--
+Type safety for us and users
+-->
+
 ---
 layout: two-cols-header
 ---
@@ -280,7 +283,7 @@ layout: two-cols-header
 
 ::left::
 
-ES modules
+ECMAScript modules
 
 ```js
 import { foo } from 'bar'
@@ -328,7 +331,7 @@ Support ES modules and CommonJS so it works in older Node.js versions.
 
 <v-click>
 
-```json {10,17}
+```json {9,10,17}
 // package.json
 {
   "name": "super-math",
@@ -528,6 +531,12 @@ layout: two-cols-header
 - [svelte-package](https://kit.svelte.dev/docs/packaging)
 
 </v-click>
+
+<!--
+TODO: mention swc and turbopack
+
+General purpose and Specific. Can't go wrong with specific.
+-->
 
 ---
 
@@ -737,7 +746,7 @@ A single key to define the package entrypoints. https://nodejs.org/api/packages.
     ".": {
       "node": "./main.node.js",
       "browser": "./main.browser.js",
-      "import": "./main.js"
+      "default": "./main.js"
     }
   }
 }
@@ -794,7 +803,7 @@ layout: two-cols-header
 
 **IMPORTANT!**
 
-Files to be packed as tarball for publishing. Same as `.gitignore` format.
+Files to be packed as tarball for publishing. Same as `.gitignore` format. You can run `npm pack` to confirm!
 
 https://docs.npmjs.com/cli/v9/configuring-npm/package-json#files
 
@@ -899,6 +908,17 @@ https://github.com/bluwy/publint
   npx publint deps
   ```
 
+  ```json
+  {
+    "scripts": {
+      "prepublishOnly": "publint"
+    },
+    "devDependencies": {
+      "publint": "*"
+    }
+  }
+  ```
+
 ---
 
 # Attributions
@@ -947,3 +967,9 @@ img {
   margin-right: 0.6rem;
 }
 </style>
+
+<!--
+Find me at these places
+
+Happy to chat if you have questions
+-->
