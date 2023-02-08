@@ -1,20 +1,13 @@
 ---
-# try also 'default' to start simple
 theme: default
 background: /cover.png
-# apply any windi css classes to the current slide
-class: 'text-center'
-# https://sli.dev/custom/highlighters.html
+class: text-center
 highlighter: shiki
-# show line numbers in code blocks
 lineNumbers: false
-# some information about the slides, markdown enabled
 info: |
   The complete guide to packaging libraries
-# persist drawings in exports and build
 drawings:
   persist: false
-# use UnoCSS
 css: unocss
 transition: fade
 ---
@@ -23,11 +16,17 @@ transition: fade
 
 <p class="text-xl opacity-100!">Publish pain-free (mostly)</p>
 
+<p class="fixed left-8 bottom-2">Vue.js Amsterdam 2023</p>
+
 <style>
   .slidev-layout.cover {
     background-image: linear-gradient(rgba(0, 0, 0, 0.433), rgba(0, 0, 0, 0.633)), url("/cover.png") !important;
   }
 </style>
+
+<!--
+Ask if anyone publish before
+-->
 
 ---
 layout: image-right
@@ -83,6 +82,14 @@ clicks: 5
 <v-clicks at="4">
   <img class="absolute bottom-40 right-80 h-28" src="/svelte.svg" />
 </v-clicks>
+
+<!--
+Astro: Talks from Fred and Elian yesterday
+
+Vite: There should be a meeting now
+
+Svelte: Vue is great too if you find it productive
+-->
 
 ---
 layout: section
@@ -507,16 +514,18 @@ layout: two-cols-header
 - [Webpack](https://webpack.js.org)
 - [Parcel](https://parceljs.org)
 - [esbuild](https://esbuild.github.io)
+- [Turbopack](https://turbo.build/pack)
+- [SWC](https://swc.rs)
 
-<img class="inline-block h-24 mr-16 mt-4 ml-6 mb-8" src="/rollup.svg" />
+<img class="inline-block h-24 mr-8 mt-4 ml-4 mb-8" src="/rollup.svg" />
 <img class="inline-block h-24 mr-5 mt-4 mb-8" src="/webpack.svg" />
+<img class="inline-block h-24 mr-5 mt-4 mb-8" src="/parcel.png" />
 
 <br>
 
-<img class="inline-block h-24 mr-8 mt-4" src="/parcel.png" />
 <img class="inline-block h-24 mr-5 mt-4" src="/esbuild.svg" />
-
-<!-- surface you might think of these -->
+<img class="inline-block h-24 mr-8 mt-4" src="/turbopack.svg" />
+<img class="inline-block h-14 mr-5 mt-4" src="/swc.png" />
 
 ::right::
 
@@ -533,14 +542,12 @@ layout: two-cols-header
 </v-click>
 
 <!--
-TODO: mention swc and turbopack
-
 General purpose and Specific. Can't go wrong with specific.
 -->
 
 ---
 
-# Simplify build script (tsup)
+# Specialized build tool (tsup)
 
 ```json {4,8}
 {
@@ -585,7 +592,11 @@ General purpose and Specific. Can't go wrong with specific.
 
 > Refer to your framework guides if available!
 
-<!-- There is so many things to consider. But there is calm within the storm -->
+<!--
+For Vue, you can use Rollup and vite-plugin-vue for example.
+
+There is so many things to consider. But there is calm within the storm.
+-->
 
 ---
 layout: cover
@@ -672,6 +683,29 @@ If backwards compatibility is not required, you can drop CJS.
   }
 }
 ```
+
+---
+
+# Export raw for private packages
+
+For private npm packages, or workspace packages, it is sometimes fine to export files as-is since you're the only consumer.
+
+```json
+{
+  "name": "super-math",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./main.ts",
+    "./advanced": "./advanced.ts"
+  }
+}
+```
+
+<!-- 
+Check out Lucie's talk on this topic later today for a deeper dive.
+-->
 
 ---
 layout: cover
@@ -883,7 +917,9 @@ li {
 </style>
 
 ---
-layout: section
+layout: cover
+background: /explain.jpg
+class: text-center
 ---
 
 # There's a lot to remember
@@ -903,21 +939,9 @@ https://github.com/bluwy/publint
   ```bash
   # Lint current directory
   npx publint
-
-  # Lint node_modules / dependencies
-  npx publint deps
   ```
 
-  ```json
-  {
-    "scripts": {
-      "prepublishOnly": "publint"
-    },
-    "devDependencies": {
-      "publint": "*"
-    }
-  }
-  ```
+<img src="/publint-qr.png" class="m-4 h-50 rounded">
 
 ---
 
@@ -959,8 +983,10 @@ Repo: https://github.com/bluwy/package-library
 
 <Bob talk />
 
+<img v-click src="/slide-qr.png" class="fixed bottom-14 right-8 h-50 rounded">
+
 <style>
-img {
+img[alt] {
   display: inline-block;
   height: 26px;
   filter: brightness(0) invert(1);
