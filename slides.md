@@ -45,7 +45,7 @@ image: /tree-path.jpg
 
 </v-clicks>
 
-<!-- There will be a lot of info dump, you can access the slides online later -->
+<!-- There will be a lot of info dump, you can access the slides online later. Focuses on packaging libraries, assumes you have some knowledge about writing JS code. -->
 
 ---
 clicks: 5
@@ -425,7 +425,7 @@ export function getHash(text: string): string {
 
 <v-click at="3">
 
-> `node` condition only works in Node.js.
+> `node` condition only works in Node.js. You can use the inverse `browser` condition if it's meant for browser usage only.
 
 </v-click>
 
@@ -646,6 +646,8 @@ function add(a, b) {
 
 </v-click>
 
+<!-- Fred's talk yesterday mentioned "Type safety is eating the world" -->
+
 ---
 layout: center
 ---
@@ -812,9 +814,9 @@ A single key to define the package entrypoints. https://nodejs.org/api/packages.
 
 Besides `types`, these fields are superseded by `exports`.
 
-- https://nodejs.org/api/packages.html#main
-- https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html#including-declarations-in-your-npm-package
-- https://github.com/defunctzombie/package-browser-field-spec
+- `main`: https://nodejs.org/api/packages.html#main
+- `types`: https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html#including-declarations-in-your-npm-package
+- `browser`: https://github.com/defunctzombie/package-browser-field-spec
 
 <br>
 
@@ -823,9 +825,7 @@ Besides `types`, these fields are superseded by `exports`.
   "main": "./main.cjs",
   "module": "./main.js",
   "types": "./main.d.ts",
-  "browser": "./main.browser.js",
-  "jsnext:main": "./main.js",
-  "jsnext": "./main.js"
+  "browser": "./main.browser.js"
 }
 ```
 
